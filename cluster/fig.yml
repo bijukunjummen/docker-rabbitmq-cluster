@@ -1,0 +1,26 @@
+rabbit1:
+  image: bijukunjummen/rabbitmq-server
+  hostname: rabbit1
+  ports:
+    - "5672:5672"
+    - "15672:15672"
+
+rabbit2:
+  image: bijukunjummen/rabbitmq-server
+  hostname: rabbit2
+  links:
+    - rabbit1
+  environment: 
+   - CLUSTERED=true
+   - CLUSTER_WITH=rabbit1
+   - RAM_NODE=true
+
+rabbit3:
+  image: bijukunjummen/rabbitmq-server
+  hostname: rabbit3
+  links:
+    - rabbit1
+    - rabbit2
+  environment: 
+   - CLUSTERED=true
+   - CLUSTER_WITH=rabbit1   
