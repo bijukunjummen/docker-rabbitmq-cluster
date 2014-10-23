@@ -1,0 +1,58 @@
+This folder structure contains the Dockerfiles for building RabbitMQ cluster - the number of nodes are completely customizable using a fig.yml file.
+
+
+Structure:
+==========
+There are 3 folders.
+
+1. base - this is the base Dockerfile which builds on a CentOS image and installs the RabbitMQ binaries on the image
+2. server - This builds on the base image and has the startup script for bring up a RabbitMQ server
+4. cluster - This contains a http://www.fig.sh/index.html[fig] definition file(fig.yml) for brining up the rabbitmq cluster. Use `fig up -d` to bring up the cluster.
+
+
+
+Running the Cluster:
+===============================
+Once the images are built, boot up the cluster using the fig.yml configuration provided in cluster folder:    
+
+[source]
+----
+fig up -d
+----
+
+By default 3 nodes are started up this way:
+
+[source]
+----
+rabbit1:
+  image: bijukunjummen/rabbitmq-server
+  hostname: rabbit1
+  ports:
+    - "5672:5672"
+    - "15672:15672"
+
+rabbit2:
+  image: bijukunjummen/rabbitmq-server
+  hostname: rabbit2
+  links:
+    - rabbit1
+  environment: 
+   - CLUSTERED=true
+   - CLUSTER_WITH=rabbit1
+   - RAM_NODE=true
+
+rabbit3:
+  image: bijukunjummen/rabbitmq-server
+  hostname: rabbit3
+  links:
+    - rabbit1
+    - rabbit2
+  environment: 
+   - CLUSTERED=true
+   - CLUSTER_WITH=rabbit1   
+----
+
+if needed, additional nodes can be added to this file
+
+
+    
