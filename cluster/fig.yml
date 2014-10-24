@@ -14,6 +14,9 @@ rabbit2:
    - CLUSTERED=true
    - CLUSTER_WITH=rabbit1
    - RAM_NODE=true
+  ports:
+      - "5673:5672"
+      - "15673:15672"
 
 rabbit3:
   image: bijukunjummen/rabbitmq-server
@@ -24,3 +27,5 @@ rabbit3:
   environment: 
    - CLUSTERED=true
    - CLUSTER_WITH=rabbit1   
+  ports:
+        - "5674:5672"
