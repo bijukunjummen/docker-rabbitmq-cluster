@@ -3,7 +3,7 @@ MAINTAINER Biju Kunjummen biju.kunjummen@gmail.com
 
 RUN yum install -y wget unzip tar
 
-RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-7.noarch.rpm
 
 RUN yum install -y erlang
 
