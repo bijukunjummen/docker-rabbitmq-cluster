@@ -17,9 +17,16 @@ else
 			rabbitmqctl join_cluster --ram rabbit@$CLUSTER_WITH
 		fi
 		rabbitmqctl start_app
+                
+        if [ "$RABBITMQ_DEFAULT_USER" -a "$RABBITMQ_DEFAULT_PASS"] then
+			rabbitmqctl wait /var/run/rabbitmq/pid
+			rabbitmqctl delete_user guest
+			rabbitmqctl add_user $RABBITMQ_DEFAULT_USER $RABBITMQ_DEFAULT_PASS
+			rabbitmqctl set_user_tags $RABBITMQ_DEFAULT_USER administrator
+			rabbitmqctl set_permissions -p / $RABBITMQ_DEFAULT_USER ".*" ".*" ".*"
+		fi
 
 		# Tail to keep the a foreground process active..
 		tail -f /var/log/rabbitmq/rabbit\@$HOSTNAME.log
 	fi
 fi
-
