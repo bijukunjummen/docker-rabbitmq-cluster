@@ -31,8 +31,8 @@ rabbit1:
     - "5672:5672"
     - "15672:15672"
   environment:
-    - RABBITMQ_DEFAULT_USER=username
-    - RABBITMQ_DEFAULT_PASS=password
+    - RABBITMQ_DEFAULT_USER=myuser
+    - RABBITMQ_DEFAULT_PASS=mypass
 rabbit2:
   image: bijukunjummen/rabbitmq-server
   hostname: rabbit2
