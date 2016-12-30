@@ -1,5 +1,5 @@
 rabbit1:
-  image: bijukunjummen/rabbitmq-server
+  image: bijukunjummen/rabbitmq-server:3.6.5
   hostname: rabbit1
   ports:
     - "5672:5672"
@@ -8,7 +8,7 @@ rabbit1:
     - RABBITMQ_DEFAULT_USER=myuser
     - RABBITMQ_DEFAULT_PASS=mypass
 rabbit2:
-  image: bijukunjummen/rabbitmq-server
+  image: bijukunjummen/rabbitmq-server:3.6.5
   hostname: rabbit2
   links:
     - rabbit1
@@ -21,7 +21,7 @@ rabbit2:
       - "15673:15672"
 
 rabbit3:
-  image: bijukunjummen/rabbitmq-server
+  image: bijukunjummen/rabbitmq-server:3.6.5
   hostname: rabbit3
   links:
     - rabbit1
